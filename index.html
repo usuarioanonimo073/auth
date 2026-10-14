@@ -1,12 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0b0d12">
-  <title>Prisma OAuth2 — Acesso confirmado</title>
-  <meta name="description" content="Confirmação de autenticação Discord OAuth2.">
+  <title>Prisma Seller — Acesso confirmado</title>
+  <meta name="description" content="Página de autenticação Discord da Prisma Seller.">
 
   <style>
     * {
@@ -178,14 +177,13 @@
 <body>
   <main class="card">
     <div class="logo">
-      <!-- Substitua pela URL do ícone do seu servidor -->
       <img
         src="https://cdn.discordapp.com/icons/1502857282332135484/a_d096350d1a4784c1fdd7561578e12a14.gif?size=128"
         alt="Logo do servidor"
       >
     </div>
 
-    <div class="brand">Prisma OAuth2</div>
+    <div class="brand">Prisma Seller</div>
 
     <div class="status" id="status">
       <svg viewBox="0 0 24 24" fill="none"
@@ -214,43 +212,4 @@
       href="https://discord.com/channels/1559746809029595237"
     >
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M19.7 5.3a18.4 18.4 0 0 0-4.6-1.4l-.6 1.2a17 17 0 0 0-5 0l-.6-1.2a18.4 18.4 0 0 0-4.6 1.4C1.4 9.6.6 13.8 1 17.9a18.5 18.5 0 0 0 5.7 2.9l1.2-2a12 12 0 0 1-1.9-.9l.5-.4a13.2 13.2 0 0 0 11 0l.5.4a12 12 0 0 1-1.9.9l1.2 2a18.5 18.5 0 0 0 5.7-2.9c.5-4.8-.8-8.9-3.3-12.6ZM8.8 15.5c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Zm6.4 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Z"/>
-      </svg>
-      Voltar ao Discord
-    </a>
-
-    <footer class="footer">
-      Prisma OAUTH2 · AUTENTICAÇÃO SEGURA
-    </footer>
-  </main>
-
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const verified = params.get("status") === "ok";
-
-    const title = document.getElementById("title");
-    const description = document.getElementById("description");
-    const statusText = document.getElementById("statusText");
-    const status = document.getElementById("status");
-    const error = document.getElementById("error");
-    const button = document.getElementById("discordButton");
-
-    // Aceita apenas IDs numéricos de servidor.
-    const guild = params.get("guild");
-    if (guild && /^\d{17,20}$/.test(guild)) {
-      button.href = `https://discord.com/channels/${guild}`;
-    }
-
-    if (!verified) {
-      title.textContent = "Verificação não confirmada";
-      description.textContent =
-        "Acesse o processo de verificação para concluir a autenticação.";
-      statusText.textContent = "AGUARDANDO VERIFICAÇÃO";
-      status.style.color = "#ffd080";
-      status.style.background = "#302718";
-      status.style.borderColor = "#5c4827";
-      error.style.display = "block";
-    }
-  </script>
-</body>
-</html>
+        <path d="M19.7 5.3a18.4 18.4 0 0 0-4.6-1.4l-.6 1.2a17 17 0 0 0-5 0l-.6-1.2a18.4 18.4 0 0 0-4.6 1.4C1.4 9.6.6 13.8 1 17.9a18.5 18.5 0 0 0 5.7 2.9l1.2-2a12 12 0 0 1-1.9-.9l.5-.4a13.2 13.2 0 0 0 11 0l.5.4a12 12 0 0 1-1.9.9l1.2 
