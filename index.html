@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0d12">
+  <title>Prisma OAuth2 — Acesso confirmado</title>
+  <meta name="description" content="Confirmação de autenticação Discord OAuth2.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background:
+        radial-gradient(ellipse at top, #171b30 0%, transparent 55%),
+        #0b0d12;
+      color: #f4f5fa;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 430px;
+      padding: 38px 30px 27px;
+      text-align: center;
+      background: rgba(19, 22, 32, 0.96);
+      border: 1px solid #292d3b;
+      border-radius: 24px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+      animation: appear 0.5s ease both;
+    }
+
+    .logo {
+      width: 86px;
+      height: 86px;
+      margin: 0 auto 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid #343a53;
+      background: linear-gradient(145deg, #242a46, #151824);
+      overflow: hidden;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand {
+      margin-bottom: 28px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #a5adca;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      margin-bottom: 23px;
+      border: 1px solid #24543f;
+      border-radius: 50px;
+      background: #14271f;
+      color: #70e3a4;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .status svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: clamp(25px, 6vw, 30px);
+      line-height: 1.2;
+      letter-spacing: -0.8px;
+    }
+
+    .description {
+      max-width: 320px;
+      margin: 0 auto 28px;
+      color: #969bad;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .button {
+      min-height: 51px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: #5865f2;
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .button:hover {
+      background: #4752d9;
+      transform: translateY(-2px);
+    }
+
+    .button svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .footer {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid #292d3b;
+      color: #666d81;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+    }
+
+    .error {
+      display: none;
+      margin: 0 0 20px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #332019;
+      color: #ffb9a6;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 420px) {
+      .card {
+        padding: 32px 22px 24px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <div class="logo">
+      <!-- Substitua pela URL do ícone do seu servidor -->
+      <img
+        src="https://cdn.discordapp.com/icons/1502857282332135484/a_d096350d1a4784c1fdd7561578e12a14.gif?size=128"
+        alt="Logo do servidor"
+      >
+    </div>
+
+    <div class="brand">Prisma OAuth2</div>
+
+    <div class="status" id="status">
+      <svg viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="m5 12 4 4L19 6"></path>
+      </svg>
+      <span id="statusText">ACESSO CONFIRMADO</span>
+    </div>
+
+    <h1 id="title">Acesso confirmado</h1>
+
+    <p class="description" id="description">
+      Sua conta foi verificada com sucesso.
+      Você já pode voltar ao Discord.
+    </p>
+
+    <p class="error" id="error">
+      Não foi possível confirmar o status da verificação.
+      Volte ao processo de autenticação e tente novamente.
+    </p>
+
+    <a
+      class="button"
+      id="discordButton"
+      href="https://discord.com/channels/1559746809029595237"
+    >
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M19.7 5.3a18.4 18.4 0 0 0-4.6-1.4l-.6 1.2a17 17 0 0 0-5 0l-.6-1.2a18.4 18.4 0 0 0-4.6 1.4C1.4 9.6.6 13.8 1 17.9a18.5 18.5 0 0 0 5.7 2.9l1.2-2a12 12 0 0 1-1.9-.9l.5-.4a13.2 13.2 0 0 0 11 0l.5.4a12 12 0 0 1-1.9.9l1.2 2a18.5 18.5 0 0 0 5.7-2.9c.5-4.8-.8-8.9-3.3-12.6ZM8.8 15.5c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Zm6.4 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Z"/>
+      </svg>
+      Voltar ao Discord
+    </a>
+
+    <footer class="footer">
+      Prisma OAUTH2 · AUTENTICAÇÃO SEGURA
+    </footer>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const verified = params.get("status") === "ok";
+
+    const title = document.getElementById("title");
+    const description = document.getElementById("description");
+    const statusText = document.getElementById("statusText");
+    const status = document.getElementById("status");
+    const error = document.getElementById("error");
+    const button = document.getElementById("discordButton");
+
+    // Aceita apenas IDs numéricos de servidor.
+    const guild = params.get("guild");
+    if (guild && /^\d{17,20}$/.test(guild)) {
+      button.href = `https://discord.com/channels/${guild}`;
+    }
+
+    if (!verified) {
+      title.textContent = "Verificação não confirmada";
+      description.textContent =
+        "Acesse o processo de verificação para concluir a autenticação.";
+      statusText.textContent = "AGUARDANDO VERIFICAÇÃO";
+      status.style.color = "#ffd080";
+      status.style.background = "#302718";
+      status.style.borderColor = "#5c4827";
+      error.style.display = "block";
+    }
+  </script>
+</body>
+</html>
